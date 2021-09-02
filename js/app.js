@@ -1,33 +1,32 @@
+//  get error id 
+const errorDiv = document.getElementById('error');
+//  get input Search Field
 const searchBook = () => {
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value; 
     console.log(searchText);
     searchField.value = '';
     const url = `http://openlibrary.org/search.json?q=${searchText}`
- 
-   console.log(url);
    fetch(url)
    .then(res => res.json())
    .then(data => displaySerachResult(data.docs));
-
-   const errorDiv = document.getElementById('error');
+    // condition
    if (searchText === ""){
        errorDiv.innerText = "Search Field Can Not Be Empty"
    }
    else {
        errorDiv.innerText = "Wait for Result"
    }
- 
 }
-
+// outpit site 
 const displaySerachResult = books => {
     const searchResult = document.getElementById('search-result')
     searchResult.textContent ='';
+    errorDiv.innerText = "";
     books.forEach (book => {
         console.log(book);
         const div =document.createElement('div');
-        div.classList.add('col');
-        
+        div.classList.add("col-md-4")
         const cover_i = book.cover_i;
         div.innerHTML= `
         <div class="card">
